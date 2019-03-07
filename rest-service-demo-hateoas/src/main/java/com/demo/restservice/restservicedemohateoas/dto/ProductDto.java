@@ -8,7 +8,7 @@ public class ProductDto {
     private String productCode;
     private BigDecimal productPrice;
     private boolean productState;
-    private int categoryId;
+    private int categoryFk;
 
     public ProductDto() {
     }
@@ -25,8 +25,8 @@ public class ProductDto {
         return productCode;
     }
 
-    public Integer getProductPrice() {
-        return productPrice.intValue();
+    public BigDecimal getProductPrice() {
+        return productPrice;
     }
 
     public boolean isProductState() {
@@ -34,6 +34,6 @@ public class ProductDto {
     }
 
     public int getCategoryId() {
-        return categoryId;
+        return categoryFk;
     }
 }

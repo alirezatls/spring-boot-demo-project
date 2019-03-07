@@ -4,16 +4,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.NOT_FOUND)
-public class NoSuchProductException extends RuntimeException {
+public class NoSuchCategoryException extends RuntimeException {
 
-    public NoSuchProductException() {
+    public NoSuchCategoryException() {
     }
 
-    public NoSuchProductException(String message) {
+    public NoSuchCategoryException(String message) {
         super(message);
-    }
-
-    public NoSuchProductException(Throwable cause) {
-        super(cause);
     }
 }

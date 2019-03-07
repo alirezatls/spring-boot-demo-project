@@ -28,7 +28,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class CategoryRecord extends UpdatableRecordImpl<CategoryRecord> implements Record3<Integer, String, String> {
 
-    private static final long serialVersionUID = 305224387;
+    private static final long serialVersionUID = -413896099;
 
     /**
      * Setter for <code>public.category.category_pk</code>.
@@ -45,30 +45,30 @@ public class CategoryRecord extends UpdatableRecordImpl<CategoryRecord> implemen
     }
 
     /**
-     * Setter for <code>public.category.name</code>.
+     * Setter for <code>public.category.category_name</code>.
      */
-    public void setName(String value) {
+    public void setCategoryName(String value) {
         set(1, value);
     }
 
     /**
-     * Getter for <code>public.category.name</code>.
+     * Getter for <code>public.category.category_name</code>.
      */
-    public String getName() {
+    public String getCategoryName() {
         return (String) get(1);
     }
 
     /**
-     * Setter for <code>public.category.code</code>.
+     * Setter for <code>public.category.category_code</code>.
      */
-    public void setCode(String value) {
+    public void setCategoryCode(String value) {
         set(2, value);
     }
 
     /**
-     * Getter for <code>public.category.code</code>.
+     * Getter for <code>public.category.category_code</code>.
      */
-    public String getCode() {
+    public String getCategoryCode() {
         return (String) get(2);
     }
 
@@ -117,7 +117,7 @@ public class CategoryRecord extends UpdatableRecordImpl<CategoryRecord> implemen
      */
     @Override
     public Field<String> field2() {
-        return Category.CATEGORY.NAME;
+        return Category.CATEGORY.CATEGORY_NAME;
     }
 
     /**
@@ -125,7 +125,7 @@ public class CategoryRecord extends UpdatableRecordImpl<CategoryRecord> implemen
      */
     @Override
     public Field<String> field3() {
-        return Category.CATEGORY.CODE;
+        return Category.CATEGORY.CATEGORY_CODE;
     }
 
     /**
@@ -141,7 +141,7 @@ public class CategoryRecord extends UpdatableRecordImpl<CategoryRecord> implemen
      */
     @Override
     public String component2() {
-        return getName();
+        return getCategoryName();
     }
 
     /**
@@ -149,7 +149,7 @@ public class CategoryRecord extends UpdatableRecordImpl<CategoryRecord> implemen
      */
     @Override
     public String component3() {
-        return getCode();
+        return getCategoryCode();
     }
 
     /**
@@ -165,7 +165,7 @@ public class CategoryRecord extends UpdatableRecordImpl<CategoryRecord> implemen
      */
     @Override
     public String value2() {
-        return getName();
+        return getCategoryName();
     }
 
     /**
@@ -173,7 +173,7 @@ public class CategoryRecord extends UpdatableRecordImpl<CategoryRecord> implemen
      */
     @Override
     public String value3() {
-        return getCode();
+        return getCategoryCode();
     }
 
     /**
@@ -190,7 +190,7 @@ public class CategoryRecord extends UpdatableRecordImpl<CategoryRecord> implemen
      */
     @Override
     public CategoryRecord value2(String value) {
-        setName(value);
+        setCategoryName(value);
         return this;
     }
 
@@ -199,7 +199,7 @@ public class CategoryRecord extends UpdatableRecordImpl<CategoryRecord> implemen
      */
     @Override
     public CategoryRecord value3(String value) {
-        setCode(value);
+        setCategoryCode(value);
         return this;
     }
 
@@ -228,11 +228,11 @@ public class CategoryRecord extends UpdatableRecordImpl<CategoryRecord> implemen
     /**
      * Create a detached, initialised CategoryRecord
      */
-    public CategoryRecord(Integer categoryPk, String name, String code) {
+    public CategoryRecord(Integer categoryPk, String categoryName, String categoryCode) {
         super(Category.CATEGORY);
 
         set(0, categoryPk);
-        set(1, name);
-        set(2, code);
+        set(1, categoryName);
+        set(2, categoryCode);
     }
 }

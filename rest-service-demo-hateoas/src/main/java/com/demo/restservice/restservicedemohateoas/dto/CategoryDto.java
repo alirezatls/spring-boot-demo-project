@@ -3,8 +3,8 @@ package com.demo.restservice.restservicedemohateoas.dto;
 public class CategoryDto {
 
     private int categoryPk;
-    private String name;
-    private String code;
+    private String categoryName;
+    private String categoryCode;
 
     public CategoryDto() {
     }
@@ -14,10 +14,10 @@ public class CategoryDto {
     }
 
     public String getName() {
-        return name;
+        return categoryName;
     }
 
     public String getCode() {
-        return code;
+        return categoryCode;
     }
 }

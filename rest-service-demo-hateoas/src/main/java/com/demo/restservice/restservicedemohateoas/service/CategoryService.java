@@ -24,8 +24,8 @@ public class CategoryService {
      public List<CategoryDto> fetchAllCategory() {
          return context.select(
                  CATEGORY.CATEGORY_PK,
-                 CATEGORY.NAME,
-                 CATEGORY.CODE
+                 CATEGORY.CATEGORY_NAME,
+                 CATEGORY.CATEGORY_CODE
          )
                  .from(CATEGORY)
                  .fetch()
@@ -40,8 +40,8 @@ public class CategoryService {
       public Optional<CategoryDto> fetchCategoryById(int id) {
           Optional<CategoryDto> dto = context.select(
                   CATEGORY.CATEGORY_PK,
-                  CATEGORY.NAME,
-                  CATEGORY.CODE
+                  CATEGORY.CATEGORY_NAME,
+                  CATEGORY.CATEGORY_CODE
           )
                   .from(CATEGORY)
                   .where(CATEGORY.CATEGORY_PK.eq(id))

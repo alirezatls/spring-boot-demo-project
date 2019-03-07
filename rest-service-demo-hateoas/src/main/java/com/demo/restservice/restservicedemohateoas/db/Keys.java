@@ -43,13 +43,14 @@ public class Keys {
     // -------------------------------------------------------------------------
 
     public static final UniqueKey<CategoryRecord> CATEGORY_PKEY = UniqueKeys0.CATEGORY_PKEY;
+    public static final UniqueKey<CategoryRecord> CATEGORY_CATEGORY_CODE_KEY = UniqueKeys0.CATEGORY_CATEGORY_CODE_KEY;
     public static final UniqueKey<ProductRecord> PRODUCT_PKEY = UniqueKeys0.PRODUCT_PKEY;
 
     // -------------------------------------------------------------------------
     // FOREIGN KEY definitions
     // -------------------------------------------------------------------------
 
-    public static final ForeignKey<ProductRecord, CategoryRecord> PRODUCT__PRODUCT_CATEGORY_ID_FKEY = ForeignKeys0.PRODUCT__PRODUCT_CATEGORY_ID_FKEY;
+    public static final ForeignKey<ProductRecord, CategoryRecord> PRODUCT__CAT_FK = ForeignKeys0.PRODUCT__CAT_FK;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
@@ -62,10 +63,11 @@ public class Keys {
 
     private static class UniqueKeys0 {
         public static final UniqueKey<CategoryRecord> CATEGORY_PKEY = Internal.createUniqueKey(Category.CATEGORY, "category_pkey", Category.CATEGORY.CATEGORY_PK);
+        public static final UniqueKey<CategoryRecord> CATEGORY_CATEGORY_CODE_KEY = Internal.createUniqueKey(Category.CATEGORY, "category_category_code_key", Category.CATEGORY.CATEGORY_CODE);
         public static final UniqueKey<ProductRecord> PRODUCT_PKEY = Internal.createUniqueKey(Product.PRODUCT, "product_pkey", Product.PRODUCT.PRODUCT_ID);
     }
 
     private static class ForeignKeys0 {
-        public static final ForeignKey<ProductRecord, CategoryRecord> PRODUCT__PRODUCT_CATEGORY_ID_FKEY = Internal.createForeignKey(com.demo.restservice.restservicedemohateoas.db.Keys.CATEGORY_PKEY, Product.PRODUCT, "product__product_category_id_fkey", Product.PRODUCT.CATEGORY_ID);
+        public static final ForeignKey<ProductRecord, CategoryRecord> PRODUCT__CAT_FK = Internal.createForeignKey(com.demo.restservice.restservicedemohateoas.db.Keys.CATEGORY_PKEY, Product.PRODUCT, "product__cat_fk", Product.PRODUCT.CATEGORY_FK);
     }
 }

@@ -41,7 +41,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Category extends TableImpl<CategoryRecord> {
 
-    private static final long serialVersionUID = 1687146742;
+    private static final long serialVersionUID = -806996089;
 
     /**
      * The reference instance of <code>public.category</code>
@@ -62,14 +62,14 @@ public class Category extends TableImpl<CategoryRecord> {
     public final TableField<CategoryRecord, Integer> CATEGORY_PK = createField("category_pk", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('category_category_pk_seq'::regclass)", org.jooq.impl.SQLDataType.INTEGER)), this, "");
 
     /**
-     * The column <code>public.category.name</code>.
+     * The column <code>public.category.category_name</code>.
      */
-    public final TableField<CategoryRecord, String> NAME = createField("name", org.jooq.impl.SQLDataType.VARCHAR(225).nullable(false), this, "");
+    public final TableField<CategoryRecord, String> CATEGORY_NAME = createField("category_name", org.jooq.impl.SQLDataType.VARCHAR(225).nullable(false), this, "");
 
     /**
-     * The column <code>public.category.code</code>.
+     * The column <code>public.category.category_code</code>.
      */
-    public final TableField<CategoryRecord, String> CODE = createField("code", org.jooq.impl.SQLDataType.VARCHAR(30).nullable(false), this, "");
+    public final TableField<CategoryRecord, String> CATEGORY_CODE = createField("category_code", org.jooq.impl.SQLDataType.VARCHAR(20).nullable(false), this, "");
 
     /**
      * Create a <code>public.category</code> table reference
@@ -117,7 +117,7 @@ public class Category extends TableImpl<CategoryRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.CATEGORY_PKEY);
+        return Arrays.<Index>asList(Indexes.CATEGORY_CATEGORY_CODE_KEY, Indexes.CATEGORY_PKEY);
     }
 
     /**
@@ -141,7 +141,7 @@ public class Category extends TableImpl<CategoryRecord> {
      */
     @Override
     public List<UniqueKey<CategoryRecord>> getKeys() {
-        return Arrays.<UniqueKey<CategoryRecord>>asList(Keys.CATEGORY_PKEY);
+        return Arrays.<UniqueKey<CategoryRecord>>asList(Keys.CATEGORY_PKEY, Keys.CATEGORY_CATEGORY_CODE_KEY);
     }
 
     /**

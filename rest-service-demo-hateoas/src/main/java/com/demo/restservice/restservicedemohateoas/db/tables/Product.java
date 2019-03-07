@@ -9,6 +9,7 @@ import com.demo.restservice.restservicedemohateoas.db.Keys;
 import com.demo.restservice.restservicedemohateoas.db.Public;
 import com.demo.restservice.restservicedemohateoas.db.tables.records.ProductRecord;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
@@ -41,7 +42,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Product extends TableImpl<ProductRecord> {
 
-    private static final long serialVersionUID = -1041509174;
+    private static final long serialVersionUID = -196281410;
 
     /**
      * The reference instance of <code>public.product</code>
@@ -69,12 +70,12 @@ public class Product extends TableImpl<ProductRecord> {
     /**
      * The column <code>public.product.product_code</code>.
      */
-    public final TableField<ProductRecord, String> PRODUCT_CODE = createField("product_code", org.jooq.impl.SQLDataType.VARCHAR(30).nullable(false), this, "");
+    public final TableField<ProductRecord, String> PRODUCT_CODE = createField("product_code", org.jooq.impl.SQLDataType.VARCHAR(20).nullable(false), this, "");
 
     /**
      * The column <code>public.product.product_price</code>.
      */
-    public final TableField<ProductRecord, Integer> PRODUCT_PRICE = createField("product_price", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<ProductRecord, BigDecimal> PRODUCT_PRICE = createField("product_price", org.jooq.impl.SQLDataType.NUMERIC(6, 1).nullable(false), this, "");
 
     /**
      * The column <code>public.product.product_state</code>.
@@ -82,9 +83,9 @@ public class Product extends TableImpl<ProductRecord> {
     public final TableField<ProductRecord, Boolean> PRODUCT_STATE = createField("product_state", org.jooq.impl.SQLDataType.BOOLEAN.nullable(false), this, "");
 
     /**
-     * The column <code>public.product.category_id</code>.
+     * The column <code>public.product.category_fk</code>.
      */
-    public final TableField<ProductRecord, Integer> CATEGORY_ID = createField("category_id", org.jooq.impl.SQLDataType.INTEGER, this, "");
+    public final TableField<ProductRecord, Integer> CATEGORY_FK = createField("category_fk", org.jooq.impl.SQLDataType.INTEGER, this, "");
 
     /**
      * Create a <code>public.product</code> table reference
@@ -164,11 +165,11 @@ public class Product extends TableImpl<ProductRecord> {
      */
     @Override
     public List<ForeignKey<ProductRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<ProductRecord, ?>>asList(Keys.PRODUCT__PRODUCT_CATEGORY_ID_FKEY);
+        return Arrays.<ForeignKey<ProductRecord, ?>>asList(Keys.PRODUCT__CAT_FK);
     }
 
     public Category category() {
-        return new Category(this, Keys.PRODUCT__PRODUCT_CATEGORY_ID_FKEY);
+        return new Category(this, Keys.PRODUCT__CAT_FK);
     }
 
     /**

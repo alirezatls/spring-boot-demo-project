@@ -4,8 +4,13 @@ import com.demo.restservice.restservicedemohateoas.dto.ProductDto;
 import com.demo.restservice.restservicedemohateoas.exception.NoSuchProductException;
 import com.demo.restservice.restservicedemohateoas.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.*;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,15 +39,25 @@ public class ProductController {
         return productService.fetchAllProductByCategoryId(categoryId);
     }
 
+
     /**
-     *   ##FETCH A PRODUCT WITH ID##
+     * fetch a product by id
      * @param productId is identity of product
      * @return an object of product or else throw an exception
      */
-    @GetMapping(path = "/api/demo/categories/products/{productId}")
-    public ProductDto getProduct(@PathVariable(name = "productId") int productId) {
+    @GetMapping(path = "/api/demo/categories/products/{productId}",produces = {MediaType.APPLICATION_JSON_VALUE})
+    public Resource<ProductDto> getProduct(@PathVariable(name = "productId") int productId) {
         Optional<ProductDto> productDto = productService.fechProductByIdAndCategoryId(productId);
-        return productDto.orElseThrow(NoSuchProductException::new);
+
+        Resource<ProductDto> resource = new Resource<ProductDto>(productDto.orElseThrow(NoSuchProductException::new));
+
+        Link link = ControllerLinkBuilder.linkTo(
+                ControllerLinkBuilder.methodOn(this.getClass()).getAllProduct()
+        ).withRel("all_products");
+
+        resource.add(link);
+
+        return resource;
     }
 
     /**

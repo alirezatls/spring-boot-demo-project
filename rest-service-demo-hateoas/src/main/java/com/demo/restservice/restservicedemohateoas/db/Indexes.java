@@ -31,6 +31,7 @@ public class Indexes {
     // INDEX definitions
     // -------------------------------------------------------------------------
 
+    public static final Index CATEGORY_CATEGORY_CODE_KEY = Indexes0.CATEGORY_CATEGORY_CODE_KEY;
     public static final Index CATEGORY_PKEY = Indexes0.CATEGORY_PKEY;
     public static final Index PRODUCT_PKEY = Indexes0.PRODUCT_PKEY;
 
@@ -39,6 +40,7 @@ public class Indexes {
     // -------------------------------------------------------------------------
 
     private static class Indexes0 {
+        public static Index CATEGORY_CATEGORY_CODE_KEY = Internal.createIndex("category_category_code_key", Category.CATEGORY, new OrderField[] { Category.CATEGORY.CATEGORY_CODE }, true);
         public static Index CATEGORY_PKEY = Internal.createIndex("category_pkey", Category.CATEGORY, new OrderField[] { Category.CATEGORY.CATEGORY_PK }, true);
         public static Index PRODUCT_PKEY = Internal.createIndex("product_pkey", Product.PRODUCT, new OrderField[] { Product.PRODUCT.PRODUCT_ID }, true);
     }

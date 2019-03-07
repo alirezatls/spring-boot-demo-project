@@ -26,7 +26,7 @@ public class ProductService {
                 PRODUCT.PRODUCT_CODE,
                 PRODUCT.PRODUCT_PRICE,
                 PRODUCT.PRODUCT_STATE,
-                PRODUCT.CATEGORY_ID
+                PRODUCT.CATEGORY_FK
         )
                 .from(PRODUCT)
                 .fetch()
@@ -46,10 +46,10 @@ public class ProductService {
                 PRODUCT.PRODUCT_CODE,
                 PRODUCT.PRODUCT_PRICE,
                 PRODUCT.PRODUCT_STATE,
-                PRODUCT.CATEGORY_ID
+                PRODUCT.CATEGORY_FK
         )
                 .from(PRODUCT)
-                .where(PRODUCT.CATEGORY_ID.eq(id))
+                .where(PRODUCT.CATEGORY_FK.eq(id))
                 .fetch()
                 .into(ProductDto.class);
         return products;
@@ -67,7 +67,7 @@ public class ProductService {
                 PRODUCT.PRODUCT_CODE,
                 PRODUCT.PRODUCT_PRICE,
                 PRODUCT.PRODUCT_STATE,
-                PRODUCT.CATEGORY_ID
+                PRODUCT.CATEGORY_FK
         )
                 .from(PRODUCT)
                 .where(PRODUCT.PRODUCT_ID.eq(productId))
@@ -81,13 +81,13 @@ public class ProductService {
      * @return numbers of rows that affected
      */
     public int insertProduct(ProductDto productDto) {
-        int affectedRows = context.insertInto(PRODUCT)
+        return context.insertInto(PRODUCT)
                 .columns(
                         PRODUCT.PRODUCT_NAME,
                         PRODUCT.PRODUCT_CODE,
                         PRODUCT.PRODUCT_PRICE,
                         PRODUCT.PRODUCT_STATE,
-                        PRODUCT.CATEGORY_ID
+                        PRODUCT.CATEGORY_FK
                 )
                 .values(
                         productDto.getProductName(),
@@ -97,7 +97,6 @@ public class ProductService {
                         productDto.getCategoryId()
                 )
                 .execute();
-        return affectedRows;
     }
 
     /**
@@ -106,10 +105,9 @@ public class ProductService {
      * @return numbers of rows that affected
      */
     public int deleteProduct(int productId) {
-        int affectedRows = context.deleteFrom(PRODUCT)
+        return context.deleteFrom(PRODUCT)
                 .where(PRODUCT.PRODUCT_ID.eq(productId))
                 .execute();
-        return affectedRows;
     }
 
     /**
@@ -118,15 +116,14 @@ public class ProductService {
      * @return numbers of rows that affected
      */
     public int updateProductInCategory(int productId, ProductDto productDto) {
-        int affectedRows = context.update(PRODUCT)
+        return context.update(PRODUCT)
                 .set(PRODUCT.PRODUCT_NAME, productDto.getProductName())
                 .set(PRODUCT.PRODUCT_CODE, productDto.getProductCode())
                 .set(PRODUCT.PRODUCT_PRICE, productDto.getProductPrice())
                 .set(PRODUCT.PRODUCT_STATE, productDto.isProductState())
-                .set(PRODUCT.CATEGORY_ID, productDto.getCategoryId())
+                .set(PRODUCT.CATEGORY_FK, productDto.getCategoryId())
                 .where(PRODUCT.PRODUCT_ID.eq(productId))
                 .execute();
-        return affectedRows;
     }
 
 
