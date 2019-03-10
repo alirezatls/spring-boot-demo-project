@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.net.URI;
 
 import static org.junit.Assert.*;
@@ -48,6 +49,8 @@ public class CategoryControllerTest {
 
     @Test
     public void getCategory() {
+        int a[] = {12,15};
+        System.out.println(a);
     }
 
     @Test

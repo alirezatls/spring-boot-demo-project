@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/webjars/jquery/3.3.1-1/jquery.min.js"></script>
+    <script>
+        function a() {
+            $(document).ready(()=>{
+                let product = {
+                    productName: "nokia 1100",
+                    productCode: "101024",
+                    productPrice: 21000,
+                    productState: false,
+                    categoryFk: 1
+                };
+                $.ajax({
+                    url: "http://localhost:8080/api/demo/categories/products",
+                    contentType: "application/json",
+                    data: JSON.stringify(product),
+                    success: (result,status,xhr)=>{
+
+                    }
+
+                });
+            });
+        }
+
+    </script>
+</head>
+<body>
+    <div id="d1">this is a test</div>
+    <button onclick="a()" type="button">Button</button>
+
+</body>
+</html>

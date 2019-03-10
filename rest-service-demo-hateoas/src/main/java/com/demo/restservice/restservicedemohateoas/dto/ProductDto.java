@@ -33,7 +33,7 @@ public class ProductDto {
         return productState;
     }
 
-    public int getCategoryId() {
+    public int getCategoryFk() {
         return categoryFk;
     }
 }

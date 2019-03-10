@@ -1,6 +1,7 @@
 package com.demo.restservice.restservicedemohateoas.controller;
 
 import com.demo.restservice.restservicedemohateoas.dto.ProductDto;
+import com.demo.restservice.restservicedemohateoas.exception.NoSuchCategoryException;
 import com.demo.restservice.restservicedemohateoas.exception.NoSuchProductException;
 import com.demo.restservice.restservicedemohateoas.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,17 +9,25 @@ import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.awt.*;
+
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 public class ProductController {
 
-    @Autowired
+
     private ProductService productService;
+
+    @Autowired
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
 
     /**
      *  ##FETCH ALL PRODUCT##
@@ -36,7 +45,12 @@ public class ProductController {
      */
     @GetMapping(path = "/api/demo/categories/{categoryId}/products")
     public List<ProductDto> getAllProductOfSpecialCategory(@PathVariable(name = "categoryId") int categoryId) {
-        return productService.fetchAllProductByCategoryId(categoryId);
+        Optional<List<ProductDto>> dtos = productService.fetchAllProductByCategoryId(categoryId);
+        if(dtos.get().size() == 0) {
+            throw new NoSuchCategoryException("No Such Category with id "+categoryId);
+        }
+        return dtos.get();
+
     }
 
 
@@ -65,8 +79,13 @@ public class ProductController {
      * @param productDto is object that must save
      */
     @PostMapping(path = "/api/demo/categories/products",consumes = {"application/json"})
-    public void addNewProduct(ProductDto productDto) {
-        productService.insertProduct(productDto);
+    public ResponseEntity<Object> addNewProduct(@RequestBody ProductDto productDto) {
+        ProductDto product = productService.insertProduct(productDto);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(product.getProductId())
+                .toUri();
+        return ResponseEntity.created(uri).build();
     }
 
     /**
@@ -74,8 +93,13 @@ public class ProductController {
      * @param productId is identity of product
      */
     @DeleteMapping(path = "/api/demo/categories/products/{productId}")
-    public void deleteProduct(@PathVariable int productId) {
-        productService.deleteProduct(productId);
+    public ResponseEntity<Object> deleteProduct(@PathVariable int productId) {
+
+        int i = productService.deleteProduct(productId);
+        if(i == 0) {
+            throw new NoSuchProductException("no such product with id "+productId);
+        }
+        return ResponseEntity.ok(i);
     }
 
     /**
